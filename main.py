@@ -31,9 +31,21 @@ class snake(object):
         pass
 
 def drawGrid(w, rows, surfaces):
-    pass
+    sizeBtwn = w // rows
+
+    x=0
+    y=0
+    for l in range(rows):
+        x= x+ sizeBtwn
+        y= y+ sizeBtwn
+    
+
 def redrawWindow(surface):
-    pass
+    global rows, width
+    win.fill(0,0,0)
+    drawGrid(width, rows, surface )
+    pygame.display.update()
+
 
 def randomSnack(rows, items):
     pass
@@ -43,10 +55,11 @@ def message_box(subject, content):
 
 
 def main():
+    global width, rows
     width = 500
     height = 500
     rows= 20
-    win= pygame.display.set_mode((width, height))
+    win= pygame.display.set_mode((width, width))
     s= snake((255,0,0), (10,10))
 
     flag= True
