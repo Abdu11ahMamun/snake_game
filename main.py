@@ -36,8 +36,26 @@ class snake(object):
 
             for key in keys:
                 if keys[pygame.K_LEFT]:
-                
-        
+                    self.dirx = -1
+                    self.diry = 0
+                    self.turns[self.head.pos[:]]= [self.dirx, self.dirny]
+
+                elif keys[pygame.K_RIGHT]:
+                    self.dirx = 1
+                    self.diry = 0
+                    self.turns[self.head.pos[:]]= [self.dirx, self.dirny]
+
+                elif keys[pygame.K_UP]:
+                    self.dirx = 1
+                    self.diry = 0
+                    self.turns[self.head.pos[:]]= [self.dirx, self.dirny]
+
+                elif keys[pygame.K_Down]:
+                    self.dirx = 1
+                    self.diry = 0
+                    self.turns[self.head.pos[:]]= [self.dirx, self.dirny]
+
+
     def reset(self, pos):
         pass
     def addCube(self):
