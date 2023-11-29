@@ -21,16 +21,17 @@ class cube(object):
 class snake(object):
     body = []
     turns = {}
-    def __init__(self,color, pos):
+
+    def __init__(self, color, pos):
         self.color = color
-        self.head= cube(pos)
+        self.head = cube(pos)
         self.body.append(self.head)
-        self.dinx =0
-        self.dirny=1
+        self.dirx = 0
+        self.diry = 1
 
     def move(self):
-        for even in pygame.event.get():
-            if even.type == pygame.QUIT:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
                 pygame.quit()
             keys = pygame.key.get_pressed()
 
@@ -38,28 +39,44 @@ class snake(object):
                 if keys[pygame.K_LEFT]:
                     self.dirx = -1
                     self.diry = 0
-                    self.turns[self.head.pos[:]]= [self.dirx, self.dirny]
+                    self.turns[self.head.pos[:]] = [self.dirx, self.diry]
 
                 elif keys[pygame.K_RIGHT]:
                     self.dirx = 1
                     self.diry = 0
-                    self.turns[self.head.pos[:]]= [self.dirx, self.dirny]
+                    self.turns[self.head.pos[:]] = [self.dirx, self.diry]
 
                 elif keys[pygame.K_UP]:
-                    self.dirx = 1
-                    self.diry = 0
-                    self.turns[self.head.pos[:]]= [self.dirx, self.dirny]
+                    self.dirx = 0
+                    self.diry = -1
+                    self.turns[self.head.pos[:]] = [self.dirx, self.diry]
 
-                elif keys[pygame.K_Down]:
-                    self.dirx = 1
-                    self.diry = 0
-                    self.turns[self.head.pos[:]]= [self.dirx, self.dirny]
-
+                elif keys[pygame.K_DOWN]:
+                    self.dirx = 0
+                    self.diry = 1
+                    self.turns[self.head.pos[:]] = [self.dirx, self.diry]
 
     def reset(self, pos):
-        pass
+        self.head = cube(pos)
+        self.body = []
+        self.body.append(self.head)
+        self.dirx = 0
+        self.diry = 1
+        self.turns = {}
+
     def addCube(self):
-        pass
+        tail = self.body[-1]
+        dx, dy = tail.dirx, tail.diry
+
+        if dx == 1 and dy == 0:
+            self.body.append(cube((tail.pos[0] - 1, tail.pos[1])))
+        elif dx == -1 and dy == 0:
+            self.body.append(cube((tail.pos[0] + 1, tail.pos[1])))
+        elif dx == 0 and dy == 1:
+            self.body.append(cube((tail.pos[0], tail.pos[1] - 1)))
+        elif dx == 0 and dy == -1:
+            self.body.append(cube((tail.pos[0], tail.pos[1] + 1)))
+
     def draw(self, surface):
         pass
 
