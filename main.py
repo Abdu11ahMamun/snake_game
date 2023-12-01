@@ -55,6 +55,16 @@ class snake(object):
                     self.dirx = 0
                     self.diry = 1
                     self.turns[self.head.pos[:]] = [self.dirx, self.diry]
+            for i , c in enumerate(self.turns):
+                p= c.pos[:i]
+                if p in self.turns:
+                    turn = self.turns[p]
+                    c.move(turn[0], turn[1])
+                    if i == len(self.body)-1:
+                        self.turns.pop(p)
+                else:
+                    if c.dirx == -1 and c.pos [0] <=0: c.pos = (c.rows-1, c.pos[1])
+                    elif c.dirx == 1 and c.pos [0] >=0 c.rows-1: c.pos = (0,c.rows-1, c.pos[1])
 
     def reset(self, pos):
         self.head = cube(pos)
