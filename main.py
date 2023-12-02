@@ -64,7 +64,10 @@ class snake(object):
                         self.turns.pop(p)
                 else:
                     if c.dirx == -1 and c.pos [0] <=0: c.pos = (c.rows-1, c.pos[1])
-                    elif c.dirx == 1 and c.pos [0] >=0 c.rows-1: c.pos = (0,c.rows-1, c.pos[1])
+                    elif c.dirx == 1 and c.pos [0] >= c.rows-1: c.pos = (0, c.pos[1])
+                    elif c.diry == 1 and c.pos [1] >= c.rows-1: c.pos = (c.pos[0],0)
+                    elif c.diry == 1 and c.pos [1] <= 0: c.pos = (c.pos[0], c.rows-1)
+                    else: c.move(c.dirx, c.diry)
 
     def reset(self, pos):
         self.head = cube(pos)
@@ -88,7 +91,11 @@ class snake(object):
             self.body.append(cube((tail.pos[0], tail.pos[1] + 1)))
 
     def draw(self, surface):
-        pass
+        for i, c in enumerate(self, surface):
+            if i==0:
+                c.draw(surface,True)
+            else:
+                c.draw(surface,True)
 
 def drawGrid(w, rows, surface):
     sizeBtwn = w // rows
